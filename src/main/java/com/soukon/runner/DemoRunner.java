@@ -25,24 +25,24 @@ public class DemoRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // 简单演示：启动时打印各客户端的关键能力
-        System.out.println("===== Redisson Demo =====");
+        System.out.println("===== Redisson 示例 =====");
         boolean locked = redissonDemoService.tryWithLock("demo");
-        System.out.println("lock acquired: " + locked);
+        System.out.println("分布式锁获取结果: " + locked);
         redissonDemoService.cacheWithTtl("demo:map", "f1", "v1");
         redissonDemoService.initBloom("demo:bloom");
-        System.out.println("bloom contains f1? " + redissonDemoService.bloomMightContain("demo:bloom", "f1"));
-        System.out.println("rate acquire: " + redissonDemoService.tryAcquireRate("api"));
+        System.out.println("布隆过滤器包含 f1 ?: " + redissonDemoService.bloomMightContain("demo:bloom", "f1"));
+        System.out.println("限流获取令牌: " + redissonDemoService.tryAcquireRate("api"));
 
-        System.out.println("===== Jedis Demo =====");
-        System.out.println("set/get: " + jedisDemoService.setAndGet("jedis:k", "v"));
-        System.out.println("pipeline: " + jedisDemoService.pipelineDemo());
-        System.out.println("transaction: " + jedisDemoService.transactionDemo("sku1"));
+        System.out.println("===== Jedis 示例 =====");
+        System.out.println("字符串读写: " + jedisDemoService.setAndGet("jedis:k", "v"));
+        System.out.println("管道批量结果: " + jedisDemoService.pipelineDemo());
+        System.out.println("事务执行结果: " + jedisDemoService.transactionDemo("sku1"));
 
-        System.out.println("===== Lettuce Demo =====");
-        System.out.println("sync: " + lettuceDemoService.syncSetGet("lettuce:k", "v"));
+        System.out.println("===== Lettuce 示例 =====");
+        System.out.println("同步读写: " + lettuceDemoService.syncSetGet("lettuce:k", "v"));
         Mono<String> asyncVal = lettuceDemoService.asyncGet("lettuce:k");
-        System.out.println("async: " + asyncVal.block());
-        System.out.println("reactive: " + lettuceDemoService.reactiveSetGet("lettuce:rk", "rv").block());
+        System.out.println("异步读取: " + asyncVal.block());
+        System.out.println("响应式读写: " + lettuceDemoService.reactiveSetGet("lettuce:rk", "rv").block());
     }
 }
 
