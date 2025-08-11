@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: redis-lab
+  data:
+    redis:
+      host: 172.23.104.184
+      port: 6379
+      database: 0
+      timeout: 2s
+
+# Redisson can read external yaml, but here we show singleServer inline via property if needed.
+redisson:
+  enabled: true
+
