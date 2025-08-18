@@ -1,6 +1,25 @@
 spring:
   application:
     name: redis-lab
+  # H2 数据库配置
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+  # Redis 配置
   data:
     redis:
       host: 172.23.104.184
@@ -11,4 +30,10 @@ spring:
 # Redisson can read external yaml, but here we show singleServer inline via property if needed.
 redisson:
   enabled: true
+
+# 日志配置
+logging:
+  level:
+    com.soukon: DEBUG
+    org.springframework.cache: DEBUG
 
